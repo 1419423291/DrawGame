@@ -64,7 +64,6 @@ public class MainOnGUI : MonoBehaviour {
 			GUI.enabled = false;
 		}
 		bottomMenu               .OnGUI();
-		colorHistory             .OnGUI();
 		activeColor              .OnGUI();
 		predefinedColors         .OnGUI();		
 		additionalRightPannel    .OnGUI();

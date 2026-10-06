@@ -45,27 +45,25 @@ public class WindowPictureController : ControllerInterface {
 	
 	void unloadPictureIcons(){
 		Texture2D[,] texs = PropertiesSingleton.instance.albumsIcons;
+		if (texs == null)
+			return;
 		for (int i = 0; i < texs.GetLength(0); i++) {
-			if (texs[i,0] != null){
-				int j = 0;
-				while (texs[i,j]!=null && j < texs.GetLength(1)){
-					Resources.UnloadAsset(texs[i,j]);
-					texs[i,j]=null;
-					j++;
-				}
-			}
+			for (int j = 0; j < texs.GetLength(1); j++)
+				texs[i,j] = null;
 		}
 	}
 	
 	void loadPictureIcons(){
 		if (PropertiesSingleton.instance.albumsIcons==null)
 			PropertiesSingleton.instance.albumsIcons = new Texture2D[10,100]; //TODO get actual values here
-		SheetObject[] sheet= PropertiesSingleton.instance.albums.album[PropertiesSingleton.instance.selectedAlbum].sheetList.sheetList;
-		if (PropertiesSingleton.instance.albumsIcons[PropertiesSingleton.instance.selectedAlbum,0]!=null)
+		int albumNumber = PropertiesSingleton.instance.selectedAlbum;
+		SheetObject[] sheet= PropertiesSingleton.instance.albums.album[albumNumber].sheetList.sheetList;
+		if (PropertiesSingleton.instance.albumsIcons[albumNumber,0]!=null)
 			return; //pictures already loaded here
 		for (int i = 0; i < sheet.Length; i++) {
-			string iconPath =  sheet[i].persistentBorderLayerPath.Replace("border","icon");
-			PropertiesSingleton.instance.albumsIcons[PropertiesSingleton.instance.selectedAlbum,i] = Resources.Load(iconPath,typeof(Texture2D)) as Texture2D;
+			ColoringLevel level = sheet[i] != null ? sheet[i].coloringLevel : null;
+			if (level != null)
+				PropertiesSingleton.instance.albumsIcons[albumNumber,i] = level.preview;
 		}
 	}
 	

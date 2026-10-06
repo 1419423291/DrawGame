@@ -633,7 +633,7 @@ MonoBehaviour:
   guiStampList: {fileID: 11400000, guid: a69d5efb0df05439fb4738e160cc6f0e, type: 2}
   activeStampId: 0
   activeStampTexture: {fileID: 0}
-  albums: {fileID: 11400000, guid: 7f6760ff77d7744a9a553906d19f921a, type: 2}
+  albums: {fileID: 11400000, guid: 5d9f1b3c7e2a4f6b8d0c1e3f5a7b9d12, type: 2}
   workspaceCamProps:
     worldLeft: -512
     worldRight: 512
@@ -718,7 +718,7 @@ MonoBehaviour:
   bufferCount: 10
   bufferZStep: 60
   bufferZOffset: 120
-  defultSheetList: {fileID: 11400000, guid: 8598c369286904586946ab3b2dbf61e1, type: 2}
+  defultSheetList: {fileID: 11400000, guid: 4c8e0a2b6d1f3e5a7c9b0d2e4f6a8c10, type: 2}
   lastGuiEventType: 0
   undoEnabled: 0
   redoEnabled: 0

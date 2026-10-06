@@ -101,7 +101,7 @@ public class CanvasCamera {
 	}
 
 	public void updateCameraParameters(Rect screenRect, Vector2 canvasSize){
-
+		this.canvasSize = canvasSize;
 		canvasAspect = (float)canvasSize.x / (float)canvasSize.y;
 		canvasExtents = new Vector2(canvasSize.x / 2 , canvasSize.y / 2);
 		camera.aspect =  screenRect.width / screenRect.height ;

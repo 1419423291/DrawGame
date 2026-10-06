@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 2,
+  "levelId": "level_01",
+  "canvasWidth": 1920,
+  "canvasHeight": 1080,
+  "styles": [
+    {
+      "styleId": 1001,
+      "type": "solid",
+      "color": "#FFDD5F",
+      "createdAt": "2026-10-06T01:36:38.932Z"
+    },
+    {
+      "styleId": 1002,
+      "type": "solid",
+      "color": "#60BB83",
+      "createdAt": "2026-10-06T01:36:38.940Z"
+    },
+    {
+      "styleId": 1003,
+      "type": "solid",
+      "color": "#FFBBBF",
+      "createdAt": "2026-10-06T01:36:38.943Z"
+    },
+    {
+      "styleId": 1004,
+      "type": "solid",
+      "color": "#FEF1B1",
+      "createdAt": "2026-10-06T01:36:38.954Z"
+    },
+    {
+      "styleId": 1005,
+      "type": "solid",
+      "color": "#8DB851",
+      "createdAt": "2026-10-06T01:36:38.965Z"
+    }
+  ],
+  "regions": [
+    {
+      "regionId": 1,
+      "targetStyleId": 1001,
+      "bbox": {
+        "x": 510,
+        "y": 107,
+        "w": 186,
+        "h": 188
+      }
+    },
+    {
+      "regionId": 2,
+      "targetStyleId": 1002,
+      "bbox": {
+        "x": 742,
+        "y": 229,
+        "w": 591,
+        "h": 687
+      }
+    },
+    {
+      "regionId": 3,
+      "targetStyleId": 1003,
+      "bbox": {
+        "x": 760,
+        "y": 416,
+        "w": 58,
+        "h": 55
+      }
+    },
+    {
+      "regionId": 4,
+      "targetStyleId": 1003,
+      "bbox": {
+        "x": 1027,
+        "y": 439,
+        "w": 66,
+        "h": 61
+      }
+    },
+    {
+      "regionId": 5,
+      "targetStyleId": 1002,
+      "bbox": {
+        "x": 797,
+        "y": 556,
+        "w": 122,
+        "h": 353
+      }
+    },
+    {
+      "regionId": 6,
+      "targetStyleId": 1004,
+      "bbox": {
+        "x": 828,
+        "y": 565,
+        "w": 178,
+        "h": 291
+      }
+    },
+    {
+      "regionId": 7,
+      "targetStyleId": 1002,
+      "bbox": {
+        "x": 760,
+        "y": 606,
+        "w": 55,
+        "h": 101
+      }
+    },
+    {
+      "regionId": 8,
+      "targetStyleId": 1005,
+      "bbox": {
+        "x": 473,
+        "y": 771,
+        "w": 973,
+        "h": 237
+      }
+    },
+    {
+      "regionId": 9,
+      "targetStyleId": 1004,
+      "bbox": {
+        "x": 1152,
+        "y": 790,
+        "w": 114,
+        "h": 53
+      }
+    }
+  ],
+  "paletteItems": [
+    {
+      "paletteItemId": 1,
+      "styleId": 1001
+    },
+    {
+      "paletteItemId": 2,
+      "styleId": 1002
+    },
+    {
+      "paletteItemId": 3,
+      "styleId": 1003
+    },
+    {
+      "paletteItemId": 4,
+      "styleId": 1004
+    },
+    {
+      "paletteItemId": 5,
+      "styleId": 1005
+    }
+  ],
+  "artAssets": {
+    "regionIdMap": "regionId_map.png",
+    "lineArt": "lineart.png",
+    "recommendedImportSettings": {
+      "regionIdMap": {
+        "compression": "None",
+        "filterMode": "Point",
+        "mipmap": false
+      },
+      "lineArt": {
+        "compression": "Default",
+        "filterMode": "Bilinear",
+        "mipmap": true
+      }
+    }
+  }
+}

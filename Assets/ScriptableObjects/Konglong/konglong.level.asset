@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1a8c3e9b2d4a7e8c5f0d1b3a6e9c42, type: 3}
+  m_Name: konglong
+  m_EditorClassIdentifier: 
+  levelId: level_01
+  lineArt: {fileID: 2800000, guid: 31808a74bb7a700409dc813b9aa55e15, type: 3}
+  regionIdMap: {fileID: 2800000, guid: 5843653dda30044448a8225ae58c3160, type: 3}
+  preview: {fileID: 2800000, guid: c2f37adba3a6afe4b9a3cee30400dea3, type: 3}
+  levelData: {fileID: 4900000, guid: b62342485903ff54196702cbfabd49c3, type: 3}

@@ -12,6 +12,8 @@ public class ActiveColorButtonController : ControllerInterface {
 	#endregion
 
 	void onActiveReceiveNewColorsListener () {
+		if (ColoringLevelRuntime.IsLoaded)
+			return;
 		if (PropertiesSingleton.instance.colorProperties.randomEnabled)
 			setNewRandomColor();
 	}

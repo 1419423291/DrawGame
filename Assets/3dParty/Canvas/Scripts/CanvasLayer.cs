@@ -63,4 +63,20 @@ public class CanvasLayer {
 		if (enabled)
 			Graphics.DrawMesh (mesh, position, quaternion, material, 8, camera);
 	}
+
+	public void Release(bool destroyTexture){
+		enabled = false;
+		if (mesh != null){
+			UnityEngine.Object.Destroy(mesh);
+			mesh = null;
+		}
+		if (destroyTexture && texture != null){
+			UnityEngine.Object.Destroy(texture);
+			texture = null;
+		}
+		if (material != null){
+			UnityEngine.Object.Destroy(material);
+			material = null;
+		}
+	}
 }

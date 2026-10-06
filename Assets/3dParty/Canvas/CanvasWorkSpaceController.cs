@@ -65,17 +65,27 @@ public class CanvasWorkSpaceController : MonoBehaviour {
 	}
 
 	void onSheetChangeListener (SheetObject sheet) {
-		if (canvasInitialized){
-			canvas.setNewPicture(sheet.persistentFrontOutline, sheet.persistentBorderLayer);
-			canvas.canvasCamera.zoom(10000);
-		} else 
+		if (canvasInitialized)
+			OpenSheet(sheet);
+		else 
 			StartCoroutine(waitInitializationAndSetPicture(sheet));
 	}
 
 	IEnumerator waitInitializationAndSetPicture(SheetObject sheet){
 		while (!canvasInitialized)
 			yield return null;
-		canvas.setNewPicture(sheet.persistentFrontOutline, sheet.persistentBorderLayer);
+		OpenSheet(sheet);
+	}
+
+	void OpenSheet(SheetObject sheet){
+		if (sheet != null && sheet.coloringLevel != null && ColoringLevelRuntime.Load(sheet.coloringLevel)){
+			canvas.resize(new IntVector2(ColoringLevelRuntime.Width, ColoringLevelRuntime.Height));
+			canvas.setNewPicture(sheet.coloringLevel.lineArt, null);
+		} else {
+			ColoringLevelRuntime.Clear();
+			Debug.LogError("Sheet has no coloring level.");
+		}
+		canvas.canvasCamera.zoom(10000);
 	}
 
 #region Canvas Events logic

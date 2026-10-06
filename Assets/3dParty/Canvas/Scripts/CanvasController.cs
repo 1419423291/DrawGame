@@ -46,6 +46,7 @@ public class CanvasController : MonoBehaviour {
 	public Vector2 size;
 	public Vector2 extents;
 	public CanvasCamera canvasCamera;
+	CanvasCameraConfig cameraConfig;
 
 	public Color32[] actualColors{
 		get{
@@ -63,6 +64,7 @@ public class CanvasController : MonoBehaviour {
 	bool[] _persistentLayer;
 	bool initialized = false;
 	public void initialize(CanvasConfig config, CanvasCameraConfig canvasCameraConfig, Texture2D texture=null){
+		cameraConfig = canvasCameraConfig;
 		canvasBuffer = new CanvasBuffer(config.canvasSize, config.bufferSize);
 		this.config = config;
 		canvasCamera = new CanvasCamera(canvasCameraConfig, config.canvasSize, gameObject);
@@ -78,7 +80,46 @@ public class CanvasController : MonoBehaviour {
 	}
 
 	public void updateCameraConfig(CanvasCameraConfig canvasCameraConfig){
+		cameraConfig = canvasCameraConfig;
 		canvasCamera.updateCameraConfig(canvasCameraConfig);
+	}
+
+	public void resize(IntVector2 newSize){
+		if (newSize == null || newSize.x <= 0 || newSize.y <= 0)
+			return;
+		if (config.canvasSize != null
+		    && config.canvasSize.x == newSize.x
+		    && config.canvasSize.y == newSize.y
+		    && backLayer != null)
+			return;
+
+		if (backLayer != null)
+			backLayer.Release(true);
+		if (frontLayer != null)
+			frontLayer.Release(false);
+		if (radialLayer != null)
+			radialLayer.Release(true);
+
+		config.canvasSize = new IntVector2(newSize.x, newSize.y);
+		canvasBuffer = new CanvasBuffer(config.canvasSize, config.bufferSize);
+		backLayer = new CanvasLayer(config.canvasSize, 100, config.layersShader, canvasCamera);
+		frontLayer = new CanvasLayer(config.canvasSize, 20, config.layersShader, canvasCamera);
+		radialLayer = new CanvasRadialLayer(config.canvasSize, 25, config.radialFillShader, config.radialFillTexture, canvasCamera);
+
+		if (canvasCollider != null){
+			MeshCollider oldCollider = canvasCollider.GetComponent<MeshCollider>();
+			Mesh oldMesh = oldCollider != null ? oldCollider.sharedMesh : null;
+			DestroyImmediate(canvasCollider.gameObject);
+			if (oldMesh != null)
+				DestroyImmediate(oldMesh);
+		}
+		canvasCollider = CanvasCollider.createCanvasCollider(config.canvasSize, 10, gameObject, canvasCamera);
+
+		if (cameraConfig != null)
+			canvasCamera.updateCameraParameters(cameraConfig.screenPixelRect, config.canvasSize);
+
+		_actualColors = null;
+		_persistentLayer = null;
 	}
 
 	public void setNewPictureBlank(){

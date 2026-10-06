@@ -83,14 +83,21 @@ public class MainGameController : MonoBehaviour {
 				}
 			}
 		}
-		SheetObject[] list = PropertiesSingleton.instance.defultSheetList.sheetList;		
-		PropertiesSingleton.instance.setSheet(list[UnityEngine.Random.Range (0,list.Length-1)]);		
+		OpenFirstSheet();
 		
 		#else
-		SheetObject[] list = PropertiesSingleton.instance.defultSheetList.sheetList;		
-		PropertiesSingleton.instance.setSheet(list[UnityEngine.Random.Range (0,list.Length-1)]);		
+		OpenFirstSheet();
 		#endif
 		
+	}
+
+	void OpenFirstSheet(){
+		SheetObject[] list = PropertiesSingleton.instance.defultSheetList.sheetList;
+		if (list == null || list.Length == 0){
+			Debug.LogError("No coloring levels in the sheet list.");
+			return;
+		}
+		PropertiesSingleton.instance.setSheet(list[0]);
 	}
 
 	void onSavePictureClickListener () {

@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 2,
+  "levelId": "level_02",
+  "canvasWidth": 1920,
+  "canvasHeight": 1080,
+  "styles": [
+    {
+      "styleId": 1001,
+      "type": "linearGradient",
+      "colorStart": "#BA9F3B",
+      "colorEnd": "#FFF39A",
+      "angleDeg": 45,
+      "createdAt": "2026-10-06T01:36:21.980Z"
+    },
+    {
+      "styleId": 1002,
+      "type": "linearGradient",
+      "colorStart": "#4B9266",
+      "colorEnd": "#8CCEA6",
+      "angleDeg": 90,
+      "createdAt": "2026-10-06T01:36:22.698Z"
+    },
+    {
+      "styleId": 1003,
+      "type": "linearGradient",
+      "colorStart": "#BB8588",
+      "colorEnd": "#FFDBDE",
+      "angleDeg": 135,
+      "createdAt": "2026-10-06T01:36:22.717Z"
+    },
+    {
+      "styleId": 1004,
+      "type": "linearGradient",
+      "colorStart": "#C79295",
+      "colorEnd": "#FECDD0",
+      "angleDeg": 90,
+      "createdAt": "2026-10-06T01:36:22.735Z"
+    },
+    {
+      "styleId": 1005,
+      "type": "linearGradient",
+      "colorStart": "#8FD0A7",
+      "colorEnd": "#468E61",
+      "angleDeg": 70,
+      "createdAt": "2026-10-06T01:36:22.791Z"
+    },
+    {
+      "styleId": 1006,
+      "type": "linearGradient",
+      "colorStart": "#C6BC8A",
+      "colorEnd": "#FFFDD0",
+      "angleDeg": 120,
+      "createdAt": "2026-10-06T01:36:22.965Z"
+    },
+    {
+      "styleId": 1007,
+      "type": "linearGradient",
+      "colorStart": "#8BCEA5",
+      "colorEnd": "#4B9567",
+      "angleDeg": 0,
+      "createdAt": "2026-10-06T01:36:22.980Z"
+    },
+    {
+      "styleId": 1008,
+      "type": "linearGradient",
+      "colorStart": "#ADCC82",
+      "colorEnd": "#6E903F",
+      "angleDeg": 0,
+      "createdAt": "2026-10-06T01:36:23.719Z"
+    },
+    {
+      "styleId": 1009,
+      "type": "linearGradient",
+      "colorStart": "#C6BB88",
+      "colorEnd": "#F7EDBD",
+      "angleDeg": 25,
+      "createdAt": "2026-10-06T01:36:23.730Z"
+    }
+  ],
+  "regions": [
+    {
+      "regionId": 1,
+      "targetStyleId": 1001,
+      "bbox": {
+        "x": 510,
+        "y": 107,
+        "w": 186,
+        "h": 188
+      }
+    },
+    {
+      "regionId": 2,
+      "targetStyleId": 1002,
+      "bbox": {
+        "x": 742,
+        "y": 229,
+        "w": 591,
+        "h": 687
+      }
+    },
+    {
+      "regionId": 3,
+      "targetStyleId": 1003,
+      "bbox": {
+        "x": 760,
+        "y": 416,
+        "w": 58,
+        "h": 55
+      }
+    },
+    {
+      "regionId": 4,
+      "targetStyleId": 1004,
+      "bbox": {
+        "x": 1027,
+        "y": 439,
+        "w": 66,
+        "h": 61
+      }
+    },
+    {
+      "regionId": 5,
+      "targetStyleId": 1005,
+      "bbox": {
+        "x": 797,
+        "y": 556,
+        "w": 122,
+        "h": 353
+      }
+    },
+    {
+      "regionId": 6,
+      "targetStyleId": 1006,
+      "bbox": {
+        "x": 828,
+        "y": 565,
+        "w": 178,
+        "h": 291
+      }
+    },
+    {
+      "regionId": 7,
+      "targetStyleId": 1007,
+      "bbox": {
+        "x": 760,
+        "y": 606,
+        "w": 55,
+        "h": 101
+      }
+    },
+    {
+      "regionId": 8,
+      "targetStyleId": 1008,
+      "bbox": {
+        "x": 473,
+        "y": 771,
+        "w": 973,
+        "h": 237
+      }
+    },
+    {
+      "regionId": 9,
+      "targetStyleId": 1009,
+      "bbox": {
+        "x": 1152,
+        "y": 790,
+        "w": 114,
+        "h": 53
+      }
+    }
+  ],
+  "paletteItems": [
+    {
+      "paletteItemId": 1,
+      "styleId": 1001
+    },
+    {
+      "paletteItemId": 2,
+      "styleId": 1002
+    },
+    {
+      "paletteItemId": 3,
+      "styleId": 1003
+    },
+    {
+      "paletteItemId": 4,
+      "styleId": 1004
+    },
+    {
+      "paletteItemId": 5,
+      "styleId": 1005
+    },
+    {
+      "paletteItemId": 6,
+      "styleId": 1006
+    },
+    {
+      "paletteItemId": 7,
+      "styleId": 1007
+    },
+    {
+      "paletteItemId": 8,
+      "styleId": 1008
+    },
+    {
+      "paletteItemId": 9,
+      "styleId": 1009
+    }
+  ],
+  "artAssets": {
+    "regionIdMap": "regionId_map.png",
+    "lineArt": "lineart.png",
+    "recommendedImportSettings": {
+      "regionIdMap": {
+        "compression": "None",
+        "filterMode": "Point",
+        "mipmap": false
+      },
+      "lineArt": {
+        "compression": "Default",
+        "filterMode": "Bilinear",
+        "mipmap": true
+      }
+    }
+  }
+}

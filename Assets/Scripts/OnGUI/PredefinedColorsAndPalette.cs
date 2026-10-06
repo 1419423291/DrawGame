@@ -59,18 +59,21 @@ public class PredefinedColorsAndPalette : GUIPart {
 	
 	
 	public void recalculatePositions(){
-		itemPositions = new Rect[config.colorsNumber];
-		styles = new GUIStyle[config.colorsNumber];
-		bgs = new Texture2D[config.colorsNumber];
-		config.itemWidth = config.totalWidth / config.colorPerRow;		
-		int rowNumber = config.colorsNumber / config.colorPerRow;
+		int count = config.colorsNumber;
+		if (count < 1)
+			count = 1;
+		itemPositions = new Rect[count];
+		styles = new GUIStyle[count];
+		bgs = new Texture2D[count];
+		config.itemWidth = config.totalWidth / config.colorPerRow;
+		int rowNumber = (count + config.colorPerRow - 1) / config.colorPerRow;
 		int id=0;
 		int y=-1;
 		int x=-1;
 		bool left = true;
 		for (int i = 0; i < rowNumber; i++) {
 			y = config.down - config.itemHeight - i*(config.itemHeight + config.marginY );
-			for (int j = 0; j < config.colorPerRow; j++) {
+			for (int j = 0; j < config.colorPerRow && id < count; j++) {
 				x = config.left + config.itemWidth*j;
 				styles[id] = left ? config.leftButtonStyle : config.rightButtonStyle;
 				bgs   [id] = left ? config.leftButtonBG    : config.rightButtonBG   ;
@@ -78,28 +81,46 @@ public class PredefinedColorsAndPalette : GUIPart {
 				left = !left;
 			}
 		}
-		
-		palleteButtonRect = new Rect(config.left, y-config.itemHeight,config.totalWidth,config.itemHeight);
-		styles[0] = config.downLeftButtonStyle;
-		styles[1] = config.downRightButtonStyle;
- 		bgs[0] = config.downLeftButtonBG;
-		bgs[1] = config.downRightButtonBG;
+
+		if (count > 0){
+			styles[0] = config.downLeftButtonStyle;
+			bgs[0] = config.downLeftButtonBG;
+		}
+		if (count > 1){
+			styles[1] = config.downRightButtonStyle;
+			bgs[1] = config.downRightButtonBG;
+		}
  	}
 	
 	
 	int i;
 	public override void OnGUI (){
+		int paletteCount = ColoringLevelRuntime.PaletteCount;
+		if (paletteCount > 0 && (itemPositions == null || itemPositions.Length != paletteCount)){
+			config.colorsNumber = paletteCount;
+			recalculatePositions();
+		}
+		if (itemPositions == null)
+			return;
+
+		Color32[] palette = ColoringLevelRuntime.Palette;
 		Color previousColor = GUI.color;
-		for (i = 0; i < config.colorsNumber; i++) {
-			GUI.color = PropertiesSingleton.instance.colorProperties.predefinedColors[i];
-			GUI.DrawTexture(itemPositions[i],bgs[i]);
+		for (i = 0; i < itemPositions.Length; i++) {
+			Texture2D preview = ColoringLevelRuntime.PreviewAt(i);
+			if (preview != null) {
+				GUI.color = Color.white;
+				GUI.DrawTexture(itemPositions[i], preview, ScaleMode.StretchToFill);
+			} else {
+				if (palette != null && i < palette.Length)
+					GUI.color = palette[i];
+				else
+					GUI.color = PropertiesSingleton.instance.colorProperties.predefinedColors[i];
+				GUI.DrawTexture(itemPositions[i],bgs[i]);
+			}
 			GUI.color = previousColor;
 			if (GUI.Button(itemPositions[i],GUIContent.none, styles[i]) && WorkspaceEventManager.instance.onPredefinedColorClick!=null)
 				WorkspaceEventManager.instance.onPredefinedColorClick(i);				
 		}
-		if (GUI.Button(palleteButtonRect,GUIContent.none, config.paletteButtonStyle) && WorkspaceEventManager.instance.onPalleteOpenWindowClick!=null)
-			WorkspaceEventManager.instance.onPalleteOpenWindowClick();
-		
 	}	
 	
 	public void setPosition (Rect rect)

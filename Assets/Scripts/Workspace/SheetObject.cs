@@ -26,6 +26,7 @@ public class SheetObject : ScriptableObject {
 
 	public string                persistentBorderLayerPath;
 	public string                persistentFrontOutlinePath;
+	public ColoringLevel         coloringLevel;
 	
 	private Texture2D             _persistentBorderLayerCache  ;
 	private Texture2D             _persistentFrontOutlineCache ;

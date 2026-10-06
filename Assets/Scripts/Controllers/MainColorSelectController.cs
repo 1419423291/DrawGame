@@ -37,7 +37,9 @@ public class MainColorSelectController : ControllerInterface {
 
 	void onPredefinedColorClickListener(int id){
 		disableRandomIfEnabled ();
-		Color32  c = PropertiesSingleton.instance.colorProperties.predefinedColors[id];
+		if (!ColoringLevelRuntime.SelectStyle(id) || ColoringLevelRuntime.Palette == null || id >= ColoringLevelRuntime.Palette.Length)
+			return;
+		Color32  c = ColoringLevelRuntime.Palette[id];
 		if (WorkspaceEventManager.instance.onSelectColor!=null)
 			WorkspaceEventManager.instance.onSelectColor(c);
 	}
