@@ -1,44 +1,12 @@
 {
-  "schemaVersion": 2,
-  "levelId": "level_01",
+  "schemaVersion": 3,
+  "levelId": "level01",
   "canvasWidth": 1920,
   "canvasHeight": 1080,
-  "styles": [
-    {
-      "styleId": 1001,
-      "type": "solid",
-      "color": "#FFDD5F",
-      "createdAt": "2026-10-06T01:36:38.932Z"
-    },
-    {
-      "styleId": 1002,
-      "type": "solid",
-      "color": "#60BB83",
-      "createdAt": "2026-10-06T01:36:38.940Z"
-    },
-    {
-      "styleId": 1003,
-      "type": "solid",
-      "color": "#FFBBBF",
-      "createdAt": "2026-10-06T01:36:38.943Z"
-    },
-    {
-      "styleId": 1004,
-      "type": "solid",
-      "color": "#FEF1B1",
-      "createdAt": "2026-10-06T01:36:38.954Z"
-    },
-    {
-      "styleId": 1005,
-      "type": "solid",
-      "color": "#8DB851",
-      "createdAt": "2026-10-06T01:36:38.965Z"
-    }
-  ],
   "regions": [
     {
       "regionId": 1,
-      "targetStyleId": 1001,
+      "paletteItemId": 1,
       "bbox": {
         "x": 510,
         "y": 107,
@@ -48,7 +16,7 @@
     },
     {
       "regionId": 2,
-      "targetStyleId": 1002,
+      "paletteItemId": 2,
       "bbox": {
         "x": 742,
         "y": 229,
@@ -58,7 +26,7 @@
     },
     {
       "regionId": 3,
-      "targetStyleId": 1003,
+      "paletteItemId": 3,
       "bbox": {
         "x": 760,
         "y": 416,
@@ -68,7 +36,7 @@
     },
     {
       "regionId": 4,
-      "targetStyleId": 1003,
+      "paletteItemId": 3,
       "bbox": {
         "x": 1027,
         "y": 439,
@@ -78,7 +46,7 @@
     },
     {
       "regionId": 5,
-      "targetStyleId": 1002,
+      "paletteItemId": 4,
       "bbox": {
         "x": 797,
         "y": 556,
@@ -88,7 +56,7 @@
     },
     {
       "regionId": 6,
-      "targetStyleId": 1004,
+      "paletteItemId": 5,
       "bbox": {
         "x": 828,
         "y": 565,
@@ -98,7 +66,7 @@
     },
     {
       "regionId": 7,
-      "targetStyleId": 1002,
+      "paletteItemId": 2,
       "bbox": {
         "x": 760,
         "y": 606,
@@ -108,7 +76,7 @@
     },
     {
       "regionId": 8,
-      "targetStyleId": 1005,
+      "paletteItemId": 6,
       "bbox": {
         "x": 473,
         "y": 771,
@@ -118,7 +86,7 @@
     },
     {
       "regionId": 9,
-      "targetStyleId": 1004,
+      "paletteItemId": 7,
       "bbox": {
         "x": 1152,
         "y": 790,
@@ -130,38 +98,60 @@
   "paletteItems": [
     {
       "paletteItemId": 1,
-      "styleId": 1001
+      "color": "#E3CA6C"
     },
     {
       "paletteItemId": 2,
-      "styleId": 1002
+      "color": "#6FB389"
     },
     {
       "paletteItemId": 3,
-      "styleId": 1003
+      "color": "#E3B0B3"
     },
     {
       "paletteItemId": 4,
-      "styleId": 1004
+      "color": "#78BB91"
     },
     {
       "paletteItemId": 5,
-      "styleId": 1005
+      "color": "#E7DDAD"
+    },
+    {
+      "paletteItemId": 6,
+      "color": "#8DAD60"
+    },
+    {
+      "paletteItemId": 7,
+      "color": "#D8CD9B"
     }
   ],
   "artAssets": {
     "regionIdMap": "regionId_map.png",
     "lineArt": "lineart.png",
+    "colorImage": "GCImg_color.png",
     "recommendedImportSettings": {
       "regionIdMap": {
         "compression": "None",
         "filterMode": "Point",
-        "mipmap": false
+        "mipmap": false,
+        "readable": true,
+        "sRGB": false,
+        "npotScale": "None"
       },
       "lineArt": {
         "compression": "Default",
         "filterMode": "Bilinear",
-        "mipmap": true
+        "mipmap": true,
+        "readable": true,
+        "npotScale": "None"
+      },
+      "colorImage": {
+        "compression": "None",
+        "filterMode": "Point",
+        "mipmap": false,
+        "readable": true,
+        "sRGB": true,
+        "npotScale": "None"
       }
     }
   }

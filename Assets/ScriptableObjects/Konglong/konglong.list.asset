@@ -15,4 +15,3 @@ MonoBehaviour:
   nameKey: konglong
   sheetList:
   - {fileID: 11400000, guid: d2b1f6c38e5a4f7b0d9c2e4a6b8f0d22, type: 2}
-  - {fileID: 11400000, guid: f4d3b8e50a7c4b9d2f1e4a6c8d0b2f44, type: 2}

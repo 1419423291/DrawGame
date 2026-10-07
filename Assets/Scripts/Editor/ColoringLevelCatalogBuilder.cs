@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -47,52 +48,60 @@ public class ColoringLevelCatalogBuilder : AssetPostprocessor {
 			return;
 		refreshing = true;
 		try {
-			if (!AssetDatabase.IsValidFolder(OutputRoot))
-				AssetDatabase.CreateFolder("Assets/ScriptableObjects", "ColoringLevels");
-
-			string[] directories = Directory.GetDirectories(PicturesRoot);
-			List<string> levelDirs = new List<string>();
-			for (int i = 0; i < directories.Length; i++) {
-				string name = Path.GetFileName(directories[i]);
-				if (name.StartsWith("level"))
-					levelDirs.Add(directories[i]);
-			}
-			levelDirs.Sort(delegate(string a, string b) {
-				return string.Compare(Path.GetFileName(a), Path.GetFileName(b), System.StringComparison.Ordinal);
-			});
-
-			List<SheetObject> sheets = new List<SheetObject>();
-			for (int i = 0; i < levelDirs.Count; i++) {
-				SheetObject sheet = BuildLevel(levelDirs[i]);
-				if (sheet != null)
-					sheets.Add(sheet);
-			}
-
-			if (sheets.Count == 0) {
-				Debug.LogWarning("No coloring levels found.");
-				return;
-			}
-
-			SheetList list = AssetDatabase.LoadAssetAtPath<SheetList>(ListPath);
-			Albums albums = AssetDatabase.LoadAssetAtPath<Albums>(AlbumsPath);
-			if (list == null || albums == null || albums.album == null || albums.album.Count < 2) {
-				Debug.LogError("Coloring level list or albums asset is missing.");
-				return;
-			}
-
-			list.sheetList = sheets.ToArray();
-			EditorUtility.SetDirty(list);
-			if (sheets.Count > 0) {
-				albums.album[0].sheetObject = sheets[0];
-				albums.album[1].sheetList = list;
-				if (sheets[0].coloringLevel != null && sheets[0].coloringLevel.preview != null)
-					albums.album[1].icon = sheets[0].coloringLevel.preview;
-				EditorUtility.SetDirty(albums);
-			}
-			AssetDatabase.SaveAssets();
+			List<SheetObject> sheets = ScanLevels();
+			ApplyList(sheets);
+		} catch (Exception ex) {
+			Debug.LogError("Coloring level scan failed. Keeping the existing list. " + ex);
 		} finally {
 			refreshing = false;
 		}
+	}
+
+	static List<SheetObject> ScanLevels() {
+		if (!AssetDatabase.IsValidFolder(OutputRoot))
+			AssetDatabase.CreateFolder("Assets/ScriptableObjects", "ColoringLevels");
+
+		string[] directories = Directory.GetDirectories(PicturesRoot);
+		List<string> levelDirs = new List<string>();
+		for (int i = 0; i < directories.Length; i++) {
+			string name = Path.GetFileName(directories[i]);
+			if (name.StartsWith("level"))
+				levelDirs.Add(directories[i]);
+		}
+		levelDirs.Sort(delegate(string a, string b) {
+			return string.Compare(Path.GetFileName(a), Path.GetFileName(b), System.StringComparison.Ordinal);
+		});
+
+		List<SheetObject> sheets = new List<SheetObject>();
+		for (int i = 0; i < levelDirs.Count; i++) {
+			SheetObject sheet = BuildLevel(levelDirs[i]);
+			if (sheet != null)
+				sheets.Add(sheet);
+		}
+		return sheets;
+	}
+
+	static void ApplyList(List<SheetObject> sheets) {
+		SheetList list = AssetDatabase.LoadAssetAtPath<SheetList>(ListPath);
+		Albums albums = AssetDatabase.LoadAssetAtPath<Albums>(AlbumsPath);
+		if (list == null || albums == null || albums.album == null || albums.album.Count < 2) {
+			Debug.LogError("Coloring level list or albums asset is missing.");
+			return;
+		}
+
+		if (sheets.Count == 0)
+			Debug.LogWarning("No schema 3 coloring levels found.");
+
+		list.sheetList = sheets.ToArray();
+		EditorUtility.SetDirty(list);
+		albums.album[1].sheetList = list;
+		if (sheets.Count > 0) {
+			albums.album[0].sheetObject = sheets[0];
+			if (sheets[0].coloringLevel != null && sheets[0].coloringLevel.preview != null)
+				albums.album[1].icon = sheets[0].coloringLevel.preview;
+		}
+		EditorUtility.SetDirty(albums);
+		AssetDatabase.SaveAssets();
 	}
 
 	static SheetObject BuildLevel(string directory) {
@@ -101,11 +110,23 @@ public class ColoringLevelCatalogBuilder : AssetPostprocessor {
 		string jsonPath = assetDir + "/level_data.json";
 		string lineArtPath = assetDir + "/lineart.png";
 		string regionPath = assetDir + "/regionId_map.png";
-		string previewPath = assetDir + "/GCImg_color.png";
-		if (AssetDatabase.LoadAssetAtPath<TextAsset>(jsonPath) == null
+		string colorPath = assetDir + "/GCImg_color.png";
+		TextAsset levelData = AssetDatabase.LoadAssetAtPath<TextAsset>(jsonPath);
+		if (levelData == null
 			|| AssetDatabase.LoadAssetAtPath<Texture2D>(lineArtPath) == null
 			|| AssetDatabase.LoadAssetAtPath<Texture2D>(regionPath) == null) {
 			Debug.LogWarning("Skipping " + folder + " because lineart, regionId_map, or level_data.json is missing.");
+			return null;
+		}
+
+		ColoringLevelFile file = JsonUtility.FromJson<ColoringLevelFile>(levelData.text);
+		if (file == null || file.schemaVersion != 3) {
+			int version = file != null ? file.schemaVersion : 0;
+			Debug.LogWarning("Skipping " + folder + " because schemaVersion is " + version + ", expected 3.");
+			return null;
+		}
+		if (AssetDatabase.LoadAssetAtPath<Texture2D>(colorPath) == null) {
+			Debug.LogWarning("Skipping " + folder + " because GCImg_color.png is missing.");
 			return null;
 		}
 
@@ -113,9 +134,9 @@ public class ColoringLevelCatalogBuilder : AssetPostprocessor {
 		level.levelId = folder;
 		level.lineArt = AssetDatabase.LoadAssetAtPath<Texture2D>(lineArtPath);
 		level.regionIdMap = AssetDatabase.LoadAssetAtPath<Texture2D>(regionPath);
-		level.levelData = AssetDatabase.LoadAssetAtPath<TextAsset>(jsonPath);
-		Texture2D preview = AssetDatabase.LoadAssetAtPath<Texture2D>(previewPath);
-		level.preview = preview != null ? preview : level.lineArt;
+		level.levelData = levelData;
+		level.colorImage = AssetDatabase.LoadAssetAtPath<Texture2D>(colorPath);
+		level.preview = level.colorImage;
 		EditorUtility.SetDirty(level);
 
 		SheetObject sheet = LoadOrCreate<SheetObject>(OutputRoot + "/" + folder + ".sheet.asset");

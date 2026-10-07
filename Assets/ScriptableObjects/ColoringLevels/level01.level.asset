@@ -15,5 +15,6 @@ MonoBehaviour:
   levelId: level01
   lineArt: {fileID: 2800000, guid: 31808a74bb7a700409dc813b9aa55e15, type: 3}
   regionIdMap: {fileID: 2800000, guid: 5843653dda30044448a8225ae58c3160, type: 3}
+  colorImage: {fileID: 2800000, guid: c2f37adba3a6afe4b9a3cee30400dea3, type: 3}
   preview: {fileID: 2800000, guid: c2f37adba3a6afe4b9a3cee30400dea3, type: 3}
   levelData: {fileID: 4900000, guid: b62342485903ff54196702cbfabd49c3, type: 3}
