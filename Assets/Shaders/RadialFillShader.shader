@@ -50,7 +50,7 @@
 				float4 texcol = tex2D (_MainTex, i.uv); 
 				float4 gradientValue = tex2D (_FillTex, i.uv2);			
 				//				float4 alfa = gradientValue[3] + _FillValue < 1 ? 0 : 1;
-				float4 alfa = clamp( (_FillValue - gradientValue[3])*100  , 0 , 1);
+				float alfa = clamp( (_FillValue - gradientValue[3])*100  , 0 , 1);
 				float4 result = float4(texcol[0],texcol[1],texcol[2],texcol[3] * alfa);
 			 	
 			 	
